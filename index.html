@@ -57,8 +57,10 @@
 			}
 		</script>
 
-		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-		</fb:login-button>
+		<!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+		</fb:login-button>-->
+
+		<div class="fb-login-button" data-size="large" data-auto-logout-link="true" onclick="checkLoginStatue();"></div>
 
 		<div id="status"></div>
 	</body>
