@@ -1,6 +1,7 @@
 var Athena = (function(){
 	return {
 		sCCb:function statusChangeCallback(response){
+				console.log(this);
 				if(response.status == 'connected'){
 					this.fF();
 				}
