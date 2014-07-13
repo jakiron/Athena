@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<title>Athena - FB feed filter</title>
+		<meta charset="UTF-8">
 	</head>
 	<body>
-		<div class="fb-like" data-send="true" data-width="450" data-show-faces="true"></div>
-
 		<script>
+			function statusChangeCallback(response){
+				console.log('Status changed');
+				console.log(response);
+
+				if(response.status == 'connected'){
+					testAPI();
+				}
+				else if(response.status == 'not_authorized'){
+					document.getElementById('status').innerHTML = 'Please authorize Athena to access your Facebook data';
+				}
+				else{
+					document.getElementById('status').innerHTML = 'Please log into Facebook';
+				}
+			}
+
+			function checkLoginState(){
+				FB.getLoginStatus(function(response){
+					statusChangeCallback(response);
+				});
+			}
+
 			window.fbAsyncInit = function(){
 				FB.init({
 					appId: '674259795986232',
-					xfmbl:false,
+					cookie:true,
+					xfmbl:true,
 					version:'v2.0'
+				});
+
+				FB.getLoginStatus(function(response){
+					statusChangeCallback(response);
 				});
 			};
 
@@ -21,6 +47,19 @@
 				js.src = "//connect.facebook.net/en_US/sdk.js";
 				fjs.parentNode.insertBefore(js,fjs);
 			}(document,'script','facebook-jssdk'));
+
+			function testAPI(){
+				console.log('Welcome to Athena! Fetching your information...');
+				FB.api('/me',function(response){
+					console.log('Successful login for '+response.name);
+					document.getElementById('status').innerHTML = 'Thanks for logging in as '+response.name+'!';
+				})
+			}
 		</script>
+
+		<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+		</fb:login-button>
+
+		<div id="status"></div>
 	</body>
 </html>
