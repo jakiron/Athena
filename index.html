@@ -5,6 +5,7 @@
 		<meta charset="UTF-8">
 	</head>
 	<body>
+		<div id="fb-root"></div>
 		<script>
 			function statusChangeCallback(response){
 				console.log('Status changed');
@@ -31,7 +32,7 @@
 				FB.init({
 					appId: '674259795986232',
 					cookie:true,
-					xfmbl:true,
+					xfmbl:false,
 					version:'v2.0'
 				});
 
@@ -44,7 +45,7 @@
 				var js,fjs = d.getElementsByTagName(s)[0];
 				if(d.getElementById(id)){return;}
 				js = d.createElement(s);js.id = id;
-				js.src = "//connect.facebook.net/en_US/sdk.js";
+				js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=674259795986232&version=v2.0";
 				fjs.parentNode.insertBefore(js,fjs);
 			}(document,'script','facebook-jssdk'));
 
@@ -60,7 +61,7 @@
 		<!--<fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
 		</fb:login-button>-->
 
-		<div class="fb-login-button" data-size="large" data-auto-logout-link="true" onclick="checkLoginStatue();"></div>
+		<div class="fb-login-button" data-size="xlarge" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
 
 		<div id="status"></div>
 	</body>
