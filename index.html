@@ -3,6 +3,9 @@
 	<head>
 		<title>Athena - FB feed filter</title>
 		<meta charset="UTF-8">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	</head>
 	<body>
 		<div id="fb-root"></div>
@@ -28,7 +31,7 @@
 			}(document,'script','facebook-jssdk'));
 		</script>
 
-		<div class="fb-login-button" data-size="xlarge" data-max-rows="3" data-show-faces="true" data-auto-logout-link="true" data-scope="read_stream" onlogin="athena.cLS();"></div>
+		<div class="fb-login-button" data-size="large" data-max-rows="3" data-show-faces="true" data-auto-logout-link="true" data-scope="read_stream" onlogin="athena.cLS();"></div>
 
 		<div id="status"></div>
 	</body>

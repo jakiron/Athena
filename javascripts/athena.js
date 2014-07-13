@@ -1,7 +1,6 @@
 var Athena = (function(){
 	return {
-		sCCb:function statusChangeCallback(response){
-				console.log(this);
+		sCCb:function(response){
 				if(response.status == 'connected'){
 					this.fF();
 				}
@@ -12,13 +11,13 @@ var Athena = (function(){
 					document.getElementById('status').innerHTML = 'Please log into Facebook';
 				}
 			},
-		cLS:function checkLoginState(){
+		cLS:function(){
 				var self = this;
 				FB.getLoginStatus(function(response){
 					self.sCCb(response);
 				});
 			},
-		fF:function filterFeed(){
+		fF:function(){
 				FB.api('/me',function(response){
 					var user_name = response.name, user_id = response.id;
 					document.getElementById('status').innerHTML = '<div>Athena is fetching your feed...</div>';
@@ -30,7 +29,7 @@ var Athena = (function(){
 								var resp = response_data[i],content = resp.story || resp.message || "";
 								if(content !== ""){
 									var from = resp.from.name;
-									document.getElementById('status').innerHTML += '<div><h3>From:'+from+'</h3><p>'+content+'</p></div>';
+									document.getElementById('status').innerHTML += '<div class="panel panel-primary"><div class="panel-heading">From:'+from+'</div><div class="panel-body">'+content+'</div></div>';
 								}
 							}
 						}
@@ -40,7 +39,6 @@ var Athena = (function(){
 					});
 				});
 			}
-	};
-})();
-
+		};
+	})();
 window.athena = Athena;
