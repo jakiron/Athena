@@ -53,11 +53,19 @@
 				console.log('Welcome to Athena! Fetching your information...');
 				FB.api('/me',function(response){
 					console.log('Successful login for '+response.name);
-					var user_name = response.name;
+					var user_name = response.name, user_id = response.id;
 					FB.api('/me/feed',function(response){
-						console.log(response);
 						if(response && !response.error){
-							console.log(response);
+							console.log(response.message);
+							var response_data = response.data;
+							document.getElementById('status').innerHTML = "";
+							for(var i=0;i<response_data.length;++i){
+								var resp = response_data[i],content = resp.story || resp.message || "";
+								if(content !== ""){
+									var from = resp.from.name;
+									document.getElementById('status').innerHTML += '<div><h3>From:'+from+'</h3><p>'+content+'</p></div>';
+								}
+							}
 						}
 					})
 				})
