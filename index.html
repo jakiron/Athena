@@ -53,8 +53,9 @@
 				console.log('Welcome to Athena! Fetching your information...');
 				FB.api('/me',function(response){
 					console.log('Successful login for '+response.name);
-					var user_name = response_name;
+					var user_name = response.name;
 					FB.api('/me/feed',function(response){
+						console.log(response);
 						if(response && !response.error){
 							console.log(response);
 						}
