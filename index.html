@@ -6,28 +6,8 @@
 	</head>
 	<body>
 		<div id="fb-root"></div>
+		<script src="javascripts/athena.js"></script>
 		<script>
-			function statusChangeCallback(response){
-				console.log('Status changed');
-				console.log(response);
-
-				if(response.status == 'connected'){
-					testAPI();
-				}
-				else if(response.status == 'not_authorized'){
-					document.getElementById('status').innerHTML = 'Please authorize Athena to access your Facebook data';
-				}
-				else{
-					document.getElementById('status').innerHTML = 'Please log into Facebook';
-				}
-			}
-
-			function checkLoginState(){
-				FB.getLoginStatus(function(response){
-					statusChangeCallback(response);
-				});
-			}
-
 			window.fbAsyncInit = function(){
 				FB.init({
 					appId: '674259795986232',
@@ -37,7 +17,7 @@
 				});
 
 				FB.getLoginStatus(function(response){
-					statusChangeCallback(response);
+					athena.sCC(response);
 				});
 			};
 
@@ -48,31 +28,9 @@
 				js.src = "//connect.facebook.net/en_US/sdk.js";
 				fjs.parentNode.insertBefore(js,fjs);
 			}(document,'script','facebook-jssdk'));
-
-			function testAPI(){
-				console.log('Welcome to Athena! Fetching your information...');
-				FB.api('/me',function(response){
-					console.log('Successful login for '+response.name);
-					var user_name = response.name, user_id = response.id;
-					FB.api('/me/feed',function(response){
-						if(response && !response.error){
-							console.log(response.message);
-							var response_data = response.data;
-							document.getElementById('status').innerHTML = "";
-							for(var i=0;i<response_data.length;++i){
-								var resp = response_data[i],content = resp.story || resp.message || "";
-								if(content !== ""){
-									var from = resp.from.name;
-									document.getElementById('status').innerHTML += '<div><h3>From:'+from+'</h3><p>'+content+'</p></div>';
-								}
-							}
-						}
-					})
-				})
-			}
 		</script>
 
-		<div class="fb-login-button" data-size="xlarge" data-max-rows="3" data-show-faces="true" data-auto-logout-link="true" data-scope="read_stream" onlogin="checkLoginState();"></div>
+		<div class="fb-login-button" data-size="xlarge" data-max-rows="3" data-show-faces="true" data-auto-logout-link="true" data-scope="read_stream" onlogin="athena.cLS();"></div>
 
 		<div id="status"></div>
 	</body>
